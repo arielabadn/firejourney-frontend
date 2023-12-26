@@ -1,6 +1,7 @@
 import Google from "../Img/google.svg";
 import Header from "../components/Header";
 
+
 function Login() {
 
   const google = () => {
@@ -40,7 +41,14 @@ function Login() {
         </div> */}
 
         <div className="text-center">
-          <p className="text-base font-semibold text-gray-600 dark:text-gray-500">Fire Journey</p>
+          {/* <div className="pt-2 pb-2 grid items-center justify-center">
+            <img
+              className="h-16 w-auto"
+              src="./favicon.svg"
+              alt="Fire Journey App"
+            />
+          </div> */}
+          <p className="text-base font-semibold text-gray-600 dark:text-gray-500">FIRE Journey App</p>
           <h1 className="mt-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-300 sm:text-5xl">Sign in or sign up in seconds</h1>
           <p className="mt-6 text-base leading-7 text-gray-600 dark:text-gray-300">Use your email or another service to continue with FIRE Journey (it's free)!</p>
           <div className="mt-10 flex items-center justify-center gap-x-6">

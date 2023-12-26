@@ -1,60 +1,94 @@
 import Header from "../components/Header";
 import Stages from "../components/Dashboard/Stages";
-import NetCashFlow from "../components/Dashboard/Cashflow";
+import CashFlow from "../components/Dashboard/Cashflow";
 import AssetAllocation from "../components/Dashboard/AssetAllocation";
-import ProgressBar from "../components/Dashboard/ProgressBar";
 import NetWorth from "../components/Dashboard/NetWorth";
-import DeactivateAccount from "../components/overlays/DectivateAccount";
-
-// import MultiStep from "react-multistep"
-// import StepOne from "../components/MultiStepForm/StepOne";
-// import StepTwo from "../components/MultiStepForm/StepTwo";
-// import StepThree from "../components/MultiStepForm/StepThree";
-// import StepFour from "../components/MultiStepForm/StepFour";
-// import { useEffect, useState } from "react";
+import ProgressBar from "../components/Dashboard/ProgressBar";
+import OverlayWindow from "../components/overlays/OverlayWindow";
+import { useState, useEffect } from "react";
+import ProgressBarHorizontal from "../components/Dashboard/ProgressBarHorizontal";
 
 function Dashboard() {
+  const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState({
+    stage: null,
+    netWorth: null,
+    assets: null,
+    liabilities: null,
+    investedTotal: null,
+    stocks: null,
+    bonds: null,
+    cash: null,
+    other: null,
+    investedPercentage: null,
+    cashFlow: null,
+    income: null,
+    expenses: null,
+    savingsRate: null,
+    fireNumber: null,
+    fiPercentage: null,
+  });
+
+  useEffect(() => {
+    const getUser = () => {
+      fetch("http://localhost:3000/auth/login/success", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
+      })
+        .then((response) => {
+          if (response.status === 200) return response.json();
+          throw new Error("authentication has failed!");
+        })
+        .then((resObject) => {
+          setUser(resObject.user);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getUser();
+  }, []);
 
   return (
     <>
-      <DeactivateAccount />
-      <Header title="FIRE Journey Dashboard"/>
-      {/* <div>
-        <MultiStep activeStep={0} prevButton={{title: 'Back', style:{ borderColor: 'red', marginRight: "1rem" }}} >
-          <StepOne title='Step 1'/>
-          <StepTwo title='Step 2'/>
-          <StepThree title='Step 3'/>
-          <StepFour title='Step 4'/>
-        </MultiStep>
-        <div className='app-footer'>
-          <h6>Use navigation buttons or click on progress bar for next step.</h6>
+      <OverlayWindow user={user} show={true} setUserData={setUserData} />
+      <Header title={user ? user.given_name + "'s FIRE Journey Dashboard" : "FIRE Journey Dashboard"}/>
+
+      {/* <Stages userData={userData}/>
+      <div className="mx-auto max-w-7xl">        
+        <div className="flex flex-wrap gap-x-2 gap-y-4 pt-2">          
+          <div className="mx-auto xl:w-2/7">
+            <NetWorth userData={userData}/>
+          </div>
+          <div className="mx-auto xl:w-2/7">
+            <AssetAllocation userData={userData}/>
+          </div>
+          <div className="mx-auto xl:w-2/7">
+            <CashFlow userData={userData}/>
+          </div>
+          <div className="mx-auto xl:w-1/7">
+            <ProgressBar />
+          </div>
         </div>
       </div> */}
-      <Stages />
+
+      <Stages userData={userData} />
       <div className="mx-auto max-w-7xl">
-        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-4 pt-3 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          <article className="flex max-w-xl flex-col items-center justify-between">
-            {/* <div className="flex items-center gap-x-4 text-xs"> */}
-              <NetWorth />
-            {/* </div> */}
+        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-4 pt-4 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+          <article>
+            <NetWorth userData={userData} />
           </article>
           <article className="flex max-w-xl flex-col items-center justify-between">
-            {/* <div className="flex items-center gap-x-4 text-xs"> */}
-              <AssetAllocation />
-            {/* </div> */}
+            <AssetAllocation userData={userData} />
           </article>
-          {/* <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2"> */}
-            <article className="flex max-w-xl flex-col items-center justify-between">
-              {/* <div className="flex items-center gap-x-4 text-xs"> */}
-                <NetCashFlow />
-              {/* </div> */}
-            </article>
-            {/* <article className="flex max-w-xl flex-col items-center justify-between">
-              <div className="flex items-center gap-x-4 text-xs">
-                <ProgressBar />
-              </div>
-            </article> */}
-          {/* </div> */}
+          <article className="flex max-w-xl flex-col items-center justify-between">
+            <CashFlow userData={userData} />
+          </article>
         </div>
       </div>
     </>

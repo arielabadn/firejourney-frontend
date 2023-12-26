@@ -1,16 +1,24 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 
-function AssetAllocation() {
+function AssetAllocation(props) {
 
+  const investedTotal = props.userData.investedTotal != null ? props.userData.investedTotal : 541650;
+  const cash = props.userData.cash != null ? props.userData.cash : 8350;
+  const total = investedTotal + cash;
+  const stocks = props.userData.stocks != null ? props.userData.stocks : 129400;
+  const bonds = props.userData.bonds != null ? props.userData.bonds : 16250;
+  const other = props.userData.other != null ? props.userData.other : 396000;
+  const investedPercentage = props.userData.investedPercentage != null ? props.userData.investedPercentage : 80.8;
+  
   const options = {
-    series: [44, 55, 13, 43, 22],
+    series: [stocks, bonds, cash, other],
     options: {
       chart: {
         width: 380,
         type: 'pie',
       },
-      labels: ['Stocks', 'Bonds', 'Cash', 'RE', 'Other'],
+      labels: ['Stocks', 'Bonds', 'Cash', 'Other'],
       responsive: [{
         breakpoint: 400,
         options: {
@@ -27,6 +35,13 @@ function AssetAllocation() {
           colors: '#777'
         }
       },
+      tooltip: {
+        y: {
+          formatter: function(value) {
+            return "$" + value.toLocaleString(undefined, {maximumFractionDigits: 2})
+          }
+        }
+      },
     },
   };
 
@@ -38,15 +53,17 @@ function AssetAllocation() {
         </div>
         <div className="flex justify-between border-gray-200 border-b dark:border-gray-700 pb-3 pt-3">
           <dl>
-            <dt className="text-base font-normal text-gray-500 dark:text-gray-400 pb-1">Investments</dt>
-            <dd className="leading-none text-3xl font-bold text-gray-900 dark:text-gray-200">$5,405</dd>
+            <dt className="text-base font-normal text-gray-500 dark:text-gray-400 pb-1">Total</dt>
+            <dd className="leading-none text-3xl font-bold text-gray-900 dark:text-gray-200">${total.toLocaleString()}</dd>
           </dl>
           <div>
-            <span className="bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-green-900 dark:text-green-300">
+            <span className={investedPercentage >= 0 ? "bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-green-900 dark:text-green-300"
+              : "bg-red-100 text-red-800 text-xs font-medium inline-flex items-center px-2.5 py-1 rounded-md dark:bg-red-900 dark:text-red-300"}>
+              {/* {props.userData.investedPercentage > 0 ?
               <svg className="w-2.5 h-2.5 me-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
-              </svg>
-              Savings rate 23.5%
+              </svg> : null} */}
+              {investedPercentage > 0 ? investedPercentage.toLocaleString(undefined, {maximumFractionDigits: 2})+"% invested" : "Zero"}
             </span>
           </div>
         </div>
@@ -54,11 +71,11 @@ function AssetAllocation() {
         <div className="grid grid-cols-2 py-3">
           <dl>
             <dt className="text-base font-normal text-gray-500 dark:text-gray-400 pb-1">Invested</dt>
-            <dd className="leading-none text-xl font-bold text-green-500 dark:text-green-400">$23,635</dd>
+            <dd className="leading-none text-xl font-bold text-green-500 dark:text-green-400">${investedTotal.toLocaleString()}</dd>
           </dl>
           <dl>
             <dt className="text-base font-normal text-gray-500 dark:text-gray-400 pb-1">Cash</dt>
-            <dd className="leading-none text-xl font-bold text-gray-600 dark:text-gray-500">$18,230</dd>
+            <dd className="leading-none text-xl font-bold text-gray-600 dark:text-gray-500">${cash.toLocaleString()}</dd>
           </dl>
         </div>
         <div id="chart">
@@ -66,7 +83,7 @@ function AssetAllocation() {
             options={options.options} 
             series={options.series} 
             type="pie" 
-            width={340} />
+            width={351} />
         </div>
           <div className="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
             <div className="flex justify-between items-center pt-5">

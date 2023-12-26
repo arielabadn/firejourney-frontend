@@ -1,53 +1,55 @@
 import React, { useState, useEffect } from 'react'
 
-let firstName = ''
-const setFirstName = s => firstName = s
-
-let lastName = ''
-const setLastName = s => lastName = s
-
 export default (props) => {
+  
   const [changed, setChanged] = useState(0)
+  const [income, setIncome] = useState("")
+  const [expenses, setExpenses] = useState("")
+  
+  function signalParent(isValid) {
+    setChanged(isValid)
+    props.signalIfValid(isValid)
+  }
 
   useEffect(() => {
     if(changed == 0) {
-      // props.signalParent(firstName.length > 0)
+      signalParent(income.length > 0)
     }
   }, [changed])
 
-  const validateFirstName = (val) => {
+  const validateIncome = (val) => {
     setChanged(c => c += 1)
     
-    let prevFirstName = firstName
-    setFirstName(val)
+    let prevIncome = income
+    setIncome(val)
 
-    if(prevFirstName.length === 0 && val.length === 1) {
-      props.signalParent(true)
+    if(prevIncome.length === 0 && val.length === 1) {
+      signalParent(true)
       return
     }
     
-    if(prevFirstName.length === 1 && val.length == 0) {
-      props.signalParent(false)
+    if(prevIncome.length === 1 && val.length == 0) {
+      signalParent(false)
       return
     }
   }
 
-  const validateLastName = (val) => {
+  const validateExpenses = (val) => {
     setChanged(c => c += 1)
-    setLastName(val)
+    setExpenses(val)
   }
 
   return (
     <div>
       <div className='row'>
         <div className='six columns'>
-          <label>First Name</label>
+          <label>Income $</label>
           <input
             className='u-full-width'
-            placeholder='First Name'
+            placeholder='Income'
             type='text'
-            onChange={e => validateFirstName(e.target.value)}
-            value={firstName}
+            onChange={e => validateIncome(e.target.value)}
+            value={income}
             autoFocus
             required
           />
@@ -55,13 +57,13 @@ export default (props) => {
       </div>
       <div className='row'>
         <div className='six columns'>
-          <label>Last Name</label>
+          <label>Expenses $</label>
           <input
             className='u-full-width'
-            placeholder='Last Name'
+            placeholder='Expenses'
             type='text'
-            onChange={e => validateLastName(e.target.value)} 
-            value={lastName}
+            onChange={e => validateExpenses(e.target.value)} 
+            value={expenses}
           />
         </div>
       </div>
