@@ -11,12 +11,3 @@
       -moz-appearance: textfield !important;
     }
 }
-
-.bg-scrolling-element-when-modal-active {
-  /* when modal active */
-  touch-action: none;
-  -webkit-overflow-scrolling: none;
-  overflow: hidden;
-  /* Other browsers */
-  overscroll-behavior: none;
-}
