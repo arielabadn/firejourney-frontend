@@ -11,3 +11,5 @@
       -moz-appearance: textfield !important;
     }
 }
+
+.scroll-container { -webkit-overflow-scrolling: touch;}
