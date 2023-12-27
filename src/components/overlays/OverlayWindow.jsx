@@ -157,7 +157,7 @@ function OverlayWindow({user, show, setUserData}) {
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-gray-600 dark:text-gray-400">
-                          Fill out the following form to create a personalized dashboard, otherwise the dashboard will use sample data.
+                          Fill out the following form to create a customized dashboard, otherwise the dashboard will use sample data.
                         </p>
                       </div>
                       

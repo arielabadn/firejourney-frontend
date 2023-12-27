@@ -3,12 +3,12 @@ import Stages from "../components/Dashboard/Stages";
 import CashFlow from "../components/Dashboard/Cashflow";
 import AssetAllocation from "../components/Dashboard/AssetAllocation";
 import NetWorth from "../components/Dashboard/NetWorth";
-import ProgressBar from "../components/Dashboard/ProgressBar";
 import OverlayWindow from "../components/overlays/OverlayWindow";
 import { useState, useEffect } from "react";
-import ProgressBarHorizontal from "../components/Dashboard/ProgressBarHorizontal";
+import Disclaimer from "../components/overlays/Disclaimer";
 
 function Dashboard() {
+  const [show, setShow] = useState(false);
   const [user, setUser] = useState(null);
   const [userData, setUserData] = useState({
     stage: null,
@@ -56,41 +56,28 @@ function Dashboard() {
 
   return (
     <>
-      <OverlayWindow user={user} show={true} setUserData={setUserData} />
-      <Header title={user ? user.given_name + "'s FIRE Journey Dashboard" : "FIRE Journey Dashboard"}/>
-
-      {/* <Stages userData={userData}/>
-      <div className="mx-auto max-w-7xl">        
-        <div className="flex flex-wrap gap-x-2 gap-y-4 pt-2">          
-          <div className="mx-auto xl:w-2/7">
-            <NetWorth userData={userData}/>
+      <Disclaimer setShow={setShow} />
+      { show ? 
+        <>
+          <OverlayWindow user={user} show={true} setUserData={setUserData} />
+          <Header title={user ? user.given_name + "'s FIRE Journey Dashboard" : "FIRE Journey Dashboard"}/>
+          <Stages userData={userData} />
+          <div className="mx-auto max-w-7xl">
+            <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-4 pt-4 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+              <article>
+                <NetWorth userData={userData} />
+              </article>
+              <article className="flex max-w-xl flex-col items-center justify-between">
+                <AssetAllocation userData={userData} />
+              </article>
+              <article className="flex max-w-xl flex-col items-center justify-between">
+                <CashFlow userData={userData} />
+              </article>
+            </div>
           </div>
-          <div className="mx-auto xl:w-2/7">
-            <AssetAllocation userData={userData}/>
-          </div>
-          <div className="mx-auto xl:w-2/7">
-            <CashFlow userData={userData}/>
-          </div>
-          <div className="mx-auto xl:w-1/7">
-            <ProgressBar />
-          </div>
-        </div>
-      </div> */}
-
-      <Stages userData={userData} />
-      <div className="mx-auto max-w-7xl">
-        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-4 pt-4 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          <article>
-            <NetWorth userData={userData} />
-          </article>
-          <article className="flex max-w-xl flex-col items-center justify-between">
-            <AssetAllocation userData={userData} />
-          </article>
-          <article className="flex max-w-xl flex-col items-center justify-between">
-            <CashFlow userData={userData} />
-          </article>
-        </div>
-      </div>
+        </>
+      : <></>
+      }
     </>
   );
 }
