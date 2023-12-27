@@ -13,4 +13,11 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  .scrolling-touch {
+      -webkit-overflow-scrolling: touch;
+    }
+  .scrolling-auto {
+      -webkit-overflow-scrolling: auto;
+    }
 }
