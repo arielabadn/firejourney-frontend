@@ -7,10 +7,13 @@ import OverlayWindow from "../components/overlays/OverlayWindow";
 import { useState, useEffect } from "react";
 import Disclaimer from "../components/overlays/Disclaimer";
 import UserDashboardDataForm from "../components/overlays/UserDashboardDataForm";
+import Welcome from "../components/overlays/Welcome";
 
 function Dashboard() {
   const [showForm, setShowForm] = useState(false);
   const [showDashboard, setShowDashboard] = useState(false);
+  const [showCustomDashboardButton, setShowCustomDashboardButton] = useState(true);
+
   const [user, setUser] = useState(null);
   const [userData, setUserData] = useState({
     stage: null,
@@ -58,25 +61,69 @@ function Dashboard() {
 
   return (
     <>
-      <Disclaimer setShowForm={setShowForm} />
+      <Welcome />      
       <Header title={user ? user.given_name + "'s FIRE Journey Dashboard" : "FIRE Journey Dashboard"}/>
-          <Stages userData={userData} />
-          <div className="mx-auto max-w-7xl">
-            <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-4 pt-4 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-              <article>
-                <NetWorth userData={userData} />
-              </article>
-              <article className="flex max-w-xl flex-col items-center justify-between">
-                <AssetAllocation userData={userData} />
-              </article>
-              <article className="flex max-w-xl flex-col items-center justify-between">
-                <CashFlow userData={userData} />
-              </article>
-            </div>
+      { showCustomDashboardButton ? 
+        <>
+          <div className="mx-auto max-w-7xl pb-4">
+            <button
+              type="button"
+              className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
+              onClick={() => {
+                setShowCustomDashboardButton(false);
+                setShowForm(true);
+              }}
+            >
+              Customize Dashboard
+            </button>
           </div>
-      { showForm ? 
-        <UserDashboardDataForm user={user} showForm={showForm} setShowForm={setShowForm} setUserData={setUserData} setShowDashboard={setShowDashboard}/>
+        </>
         : <></>
+      }
+      <Stages userData={userData} />
+      <div className="mx-auto max-w-7xl">
+        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-4 pt-4 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+          <article>
+            <NetWorth userData={userData} />
+          </article>
+          <article className="flex max-w-xl flex-col items-center justify-between">
+            <AssetAllocation userData={userData} />
+          </article>
+          <article className="flex max-w-xl flex-col items-center justify-between">
+            <CashFlow userData={userData} />
+          </article>
+        </div>
+      </div>
+      { showForm ? 
+        <>
+          <Disclaimer setShowForm={setShowForm} />
+          <UserDashboardDataForm user={user} showForm={showForm} setShowForm={setShowForm} setUserData={setUserData} setShowDashboard={setShowDashboard}/>
+        </>
+        : <></>
+      }
+      { showCustomDashboardButton ? 
+        <div className="mx-auto max-w-7xl pt-4">
+          {/* <button
+            type="button"
+            className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
+            onClick={() => {
+              setShowCustomDashboardButton(false);
+              setShowForm(true);
+            }}
+          >
+            Customize Dashboard
+          </button> */}
+        </div>
+        : 
+        <div className="mx-auto max-w-7xl pt-4">
+          <button
+            type="button"
+            className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
+            onClick={() => {window.location.reload(false);}}
+          >
+            Start over
+          </button>
+        </div>
       }
     </>
   );

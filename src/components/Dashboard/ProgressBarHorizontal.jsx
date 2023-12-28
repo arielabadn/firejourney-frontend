@@ -6,7 +6,8 @@ function ProgressBarHorizontal(props) {
       notation: 'compact',
       compactDisplay: 'short'
     });
-  const fiPercentage = props.userData.fiPercentage != null ? Math.round(props.userData.fiPercentage) + "%" : "33%";
+  const fiPercentageNumber = props.userData.fiPercentage != null ? Math.round(props.userData.fiPercentage) : 33;
+  const fiPercentage = fiPercentageNumber >= 0 ? fiPercentageNumber + "%" : "0%";
 
   return (
     <>

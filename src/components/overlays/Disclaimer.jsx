@@ -1,6 +1,6 @@
-import { Fragment, useRef, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { InformationCircleIcon } from '@heroicons/react/24/solid'
+import { Fragment, useRef, useState } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { InformationCircleIcon } from '@heroicons/react/24/solid';
 
 function Disclaimer(props) {
   const [open, setOpen] = useState(true)
@@ -47,9 +47,7 @@ function Disclaimer(props) {
                         FIRE Journey App
                       </Dialog.Title>
                       <div className="mt-2">
-                        <p className="text-sm text-gray-500">
-                          Hey there! We're thrilled to have you on board with the FIRE Journey App.
-                          We would love to receive your feedback about this new app tailored for the FI/FIRE Community.
+                        <p className="text-sm text-gray-500">                          
                           We want to emphasize that the data provided by users is only used during their session and is not saved.
                           All data remains anonymous, and no personal information is requested at any point.
                         </p>

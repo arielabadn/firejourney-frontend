@@ -91,7 +91,7 @@ export default function Stages(props) {
           <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-200 sm:text-2xl">FIRE Stages</h1>
         </div> */}
         <div className="container mx-auto flex sm:max-w-xl md:max-w-full lg:max-w-screen-xl">
-          <ul className="flex flex-nowrap overflow-x-auto snap-x snap-mandatory no-scrollbar">
+          <ul className="flex flex-nowrap overflow-x-auto snap-x snap-mandatory xl:no-scrollbar light-scrollbar dark:dark-scrollbar">
             {stages.map((stage) => (
               <div key={stage.id}>
                 {stageStatus(stage)}
