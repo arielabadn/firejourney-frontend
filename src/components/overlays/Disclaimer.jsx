@@ -10,7 +10,7 @@ function Disclaimer(props) {
       <Dialog as="div" className="relative z-10" 
         onClose={() => {
           setOpen(false);
-          props.setShow(true);
+          props.setShowForm(true);
         }}
       >
         <Transition.Child
@@ -63,7 +63,7 @@ function Disclaimer(props) {
                     className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
                     onClick={() => {
                       setOpen(false);
-                      props.setShow(true);
+                      props.setShowForm(true);
                     }}
                   >
                     Continue

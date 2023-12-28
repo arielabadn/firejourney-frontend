@@ -6,9 +6,11 @@ import NetWorth from "../components/Dashboard/NetWorth";
 import OverlayWindow from "../components/overlays/OverlayWindow";
 import { useState, useEffect } from "react";
 import Disclaimer from "../components/overlays/Disclaimer";
+import UserDashboardDataForm from "../components/overlays/UserDashboardDataForm";
 
 function Dashboard() {
-  const [show, setShow] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+  const [showDashboard, setShowDashboard] = useState(false);
   const [user, setUser] = useState(null);
   const [userData, setUserData] = useState({
     stage: null,
@@ -56,11 +58,8 @@ function Dashboard() {
 
   return (
     <>
-      <Disclaimer setShow={setShow} />
-      { show ? 
-        <>
-          <OverlayWindow user={user} show={true} setUserData={setUserData} />
-          <Header title={user ? user.given_name + "'s FIRE Journey Dashboard" : "FIRE Journey Dashboard"}/>
+      <Disclaimer setShowForm={setShowForm} />
+      <Header title={user ? user.given_name + "'s FIRE Journey Dashboard" : "FIRE Journey Dashboard"}/>
           <Stages userData={userData} />
           <div className="mx-auto max-w-7xl">
             <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-4 pt-4 lg:mx-0 lg:max-w-none lg:grid-cols-3">
@@ -75,8 +74,9 @@ function Dashboard() {
               </article>
             </div>
           </div>
-        </>
-      : <></>
+      { showForm ? 
+        <UserDashboardDataForm user={user} showForm={showForm} setShowForm={setShowForm} setUserData={setUserData} setShowDashboard={setShowDashboard}/>
+        : <></>
       }
     </>
   );
