@@ -68,7 +68,7 @@ function Dashboard() {
           <div className="mx-auto max-w-7xl pb-4">
             <button
               type="button"
-              className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
+              className="inline-flex w-96 justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
               onClick={() => {
                 setShowCustomDashboardButton(false);
                 setShowForm(true);
@@ -119,7 +119,7 @@ function Dashboard() {
           <div className="pt-4 text-center">
             <button
               type="button"
-              className="w-full rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:w-48"
+              className="w-96 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
               onClick={() => {window.location.reload(false);}}
             >
               Start over
@@ -128,7 +128,7 @@ function Dashboard() {
           <div className="pt-2 text-center">
             <button
               type="button"
-              className="w-full rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:w-48"
+              className="w-96 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500"
               onClick={() => {setShowForm(true);}}
             >
               Update data
