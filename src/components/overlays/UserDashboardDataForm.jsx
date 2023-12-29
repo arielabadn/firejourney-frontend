@@ -2,9 +2,27 @@ import { useRef, useState } from 'react';
 import { Transition } from '@headlessui/react';
 import { Tooltip } from '@mui/material';
 
-function UserDashboardDataForm({user, setShowForm, setUserData, setShowDashboard}) {
+function UserDashboardDataForm({user, userData, setShowForm, setUserData, setShowDashboard}) {
     const cancelButtonRef = useRef(null)
-    const [form, setForm] = useState({
+    const currencyFormatOptions = { 
+      // style: "currency", 
+      currency: "USD", 
+      minimumFractionDigits: 0, 
+      maximumFractionDigits: 3
+    };
+    const [form, setForm] = useState(userData ? {
+      income: userData.income != null ? userData.income.toLocaleString(undefined, currencyFormatOptions) : "0",
+      expenses: userData.expenses != null ? userData.expenses.toLocaleString(undefined, currencyFormatOptions) : "0",
+      assets: userData.assets != null ? userData.assets.toLocaleString(undefined, currencyFormatOptions) : "0",
+      liabilities: userData.liabilities != null ? userData.liabilities.toLocaleString(undefined, currencyFormatOptions) : "0",
+      stocks: userData.stocks != null ? userData.stocks.toLocaleString(undefined, currencyFormatOptions) : "0",
+      bonds: userData.bonds != null ? userData.bonds.toLocaleString(undefined, currencyFormatOptions) : "0",
+      cash: userData.cash != null ? userData.cash.toLocaleString(undefined, currencyFormatOptions) : "0",
+      other: userData.other != null ? userData.other.toLocaleString(undefined, currencyFormatOptions) : "0",
+      firetype: "Traditional",
+      // retirementexpenses: userData.retirementexpenses != null ? userData.retirementexpenses : "0",
+      firenumber: userData.fireNumber != null ? userData.fireNumber.toLocaleString(undefined, currencyFormatOptions) : "0",
+    }: {
       income: "0",
       expenses: "0",
       assets: "0",
@@ -14,7 +32,7 @@ function UserDashboardDataForm({user, setShowForm, setUserData, setShowDashboard
       cash: "0",
       other: "0",
       firetype: "Traditional",
-      retirementexpenses: "0",
+      // retirementexpenses: "0",
       firenumber: "0",
     });
   
@@ -57,7 +75,7 @@ function UserDashboardDataForm({user, setShowForm, setUserData, setShowDashboard
       const cashFlow = income - expenses;
       const savingsRate = income > 0 ? (cashFlow / income) * 100 : 0;
       const netWorth = assets - liabilities;
-      const fiPercentage = fireNumber > 0 ? (netWorth / fireNumber) * 100 : 0;
+      const fiPercentage = fireNumber > 0 ? Math.round((netWorth / fireNumber) * 100) : 0;
       const investedTotal = stocks + bonds + other;
       const investedPercentage = assets > 0 ? (investedTotal / assets) * 100 : 0;
   
@@ -146,7 +164,7 @@ function UserDashboardDataForm({user, setShowForm, setUserData, setShowDashboard
                                 <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-gray-100 sm:mx-0 sm:h-10 sm:w-10">
                                     <img
                                     className="h-8 w-8 rounded-full"
-                                    src={ user != null ? user.picture : "./favicon.svg" }
+                                    src={ user != null ? userData.picture : "./favicon.svg" }
                                     alt=""
                                     />
                                 </div>
@@ -258,18 +276,18 @@ function UserDashboardDataForm({user, setShowForm, setUserData, setShowDashboard
                                         <div className="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">                        
                                             <button
                                             type="button"
-                                            className="mt-3 inline-flex w-full justify-center rounded-md bg-gray-300 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100 sm:mt-0 sm:w-auto"
+                                            className="mt-3 inline-flex w-full justify-center rounded-md bg-gray-300 px-4 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-100 sm:mt-0 sm:w-auto"
                                             onClick={handleClose}
                                             ref={cancelButtonRef}
                                             >
-                                            Use sample data
+                                            Back to current dashboard
                                             </button>
                                             <button
                                             type="submit"
-                                            className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-gray-200 shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
+                                            className="inline-flex w-full justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-gray-200 shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
                                             onClick={handleSubmit}
                                             >
-                                            View my dashboard
+                                            Update dashboard
                                             </button>
                                         </div>
             

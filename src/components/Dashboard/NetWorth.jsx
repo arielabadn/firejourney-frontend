@@ -9,7 +9,7 @@ function NetWorth(props) {
   const netWorth_data = props.userData.netWorth != null ? [0, 0, 0, 0, props.userData.netWorth] : [155000, 175000, 270000, 300000, 390000]
   const netWorth = netWorth_data.slice(-1);
   const fireNumber = props.userData.fireNumber ? props.userData.fireNumber : 1000000;
-  const fiPercentage = props.userData.fiPercentage ? props.userData.fiPercentage : (netWorth / fireNumber) * 100;
+  const fiPercentage = props.userData.fiPercentage ? props.userData.fiPercentage : Math.round((netWorth / fireNumber) * 100);
   const currencyFormatOptions = { 
     style: "currency", 
     currency: "USD", 

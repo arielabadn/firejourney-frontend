@@ -97,7 +97,7 @@ function Dashboard() {
       { showForm ? 
         <>
           <Disclaimer setShowForm={setShowForm} />
-          <UserDashboardDataForm user={user} showForm={showForm} setShowForm={setShowForm} setUserData={setUserData} setShowDashboard={setShowDashboard}/>
+          <UserDashboardDataForm user={user} userData={userData} showForm={showForm} setShowForm={setShowForm} setUserData={setUserData} setShowDashboard={setShowDashboard}/>
         </>
         : <></>
       }
@@ -115,15 +115,26 @@ function Dashboard() {
           </button> */}
         </div>
         : 
-        <div className="mx-auto max-w-7xl pt-4">
-          <button
-            type="button"
-            className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
-            onClick={() => {window.location.reload(false);}}
-          >
-            Start over
-          </button>
-        </div>
+        <>
+          <div className="pt-4 text-center">
+            <button
+              type="button"
+              className="w-full rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:w-48"
+              onClick={() => {window.location.reload(false);}}
+            >
+              Start over
+            </button>
+          </div>
+          <div className="pt-2 text-center">
+            <button
+              type="button"
+              className="w-full rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:w-48"
+              onClick={() => {setShowForm(true);}}
+            >
+              Update data
+            </button>
+          </div>
+        </>
       }
     </>
   );
