@@ -6,16 +6,17 @@ function Welcome() {
   const buttonRef = useRef(null);
   const [open, setOpen] = useState(true);
 
-  const [mailerState, setMailerState] = useState({
-    name: "",
-    subject: "firejourneyapp",
-    message: "New access to demo dashboard",
-  });
-
   const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3000";
 
-  const submitEmail = async () => {
-    // console.log({ mailerState });
+  const continueEmail = {email: "", subject: "firejourneyapp", message: "New access to demo dashboard"};
+  const facebookEmail = {email: "", subject: "firejourneyapp_facebook", message: "User clicked facebook page button in welcome message"};
+  const submitEmail = async (data) => {
+    const mailerState = {
+      email: data.email,
+      subject: data.subject,
+      message: data.message,
+    };
+    // console.log(JSON.stringify({ mailerState }));
     const response = await fetch(`${SERVER_URL}/nodemailer/send`, {
       method: "POST",
       headers: {
@@ -36,11 +37,12 @@ function Welcome() {
         // }
       })
       .then(() => {
-        setMailerState({
-          email: "",
-          subject: "",
-          message: "",
-        });
+        // setMailerState({
+        //   email: "",
+        //   subject: "",
+        //   message: "",
+        // });
+        null;
       });
   };
 
@@ -51,7 +53,7 @@ function Welcome() {
         className="relative z-10"
         onClose={() => {
           setOpen(false);
-          submitEmail();
+          submitEmail(continueEmail);
         }}
       >
         <Transition.Child
@@ -114,6 +116,9 @@ function Welcome() {
                             href="https://www.facebook.com/firejourneyapp"
                             target="_blank"
                             className="inline-flex w-auto justify-center rounded-md bg-gray-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus:outline-none"
+                            onClick={() => {
+                              submitEmail(facebookEmail);
+                            }}
                           >
                             <svg
                               className="h-5 w-5"
@@ -140,7 +145,7 @@ function Welcome() {
                     className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus:outline-none"
                     onClick={() => {
                       setOpen(false);
-                      submitEmail();
+                      submitEmail(continueEmail);
                     }}
                     ref={buttonRef}
                   >
