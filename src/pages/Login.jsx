@@ -1,19 +1,20 @@
 import Google from "../Img/google.svg";
 import Header from "../components/Header";
 
+const SERVER_URL = import.meta.env.SERVER_URL || "http://localhost:3000";
 
 function Login() {
 
   const google = () => {
-      window.open("http://localhost:3000/auth/google", "_self");
+      window.open(`${SERVER_URL}/auth/google`, "_self");
   };
 
   const github = () => {
-      window.open("http://localhost:3000/auth/github", "_self");
+      window.open(`${SERVER_URL}/auth/github`, "_self");
   };
 
   const facebook = () => {
-      window.open("http://localhost:3000/auth/facebook", "_self");
+      window.open(`${SERVER_URL}/auth/facebook`, "_self");
   };
   return (
     <>

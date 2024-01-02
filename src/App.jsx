@@ -1,14 +1,19 @@
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import './App.css'
 import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Footer from "./components/Footer";
-import CalculateFIRENumber from "./components/CalculateYourFIRENumber";
-import PageNotFound from "./pages/PageNotFound";
-import StackedLayout from "./components/StackedLayout";
-import Dashboard from "./pages/Dashboard";
+
+const Home = lazy(() => import("./pages/Home"));
+const Login = lazy(() => import("./pages/Login"));
+const Footer = lazy(() => import("./components/Footer"));
+const CalculateFIRENumber = lazy(() => import("./components/CalculateYourFIRENumber"));
+const PageNotFound = lazy(() => import("./pages/PageNotFound"));
+const StackedLayout = lazy(() => import("./components/StackedLayout"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+// const Page = lazy(() => import("./components/Page"));
+// const Pages = lazy(() => import("./components/Pages"));
+
+const SERVER_URL = import.meta.env.SERVER_URL || "http://localhost:3000";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -16,7 +21,7 @@ function App() {
 
   useEffect(()=>{
     const getUser = ()=>{
-      fetch("http://localhost:3000/auth/login/success", {
+      fetch(`${SERVER_URL}/auth/login/success`, {
         method:"GET", 
         credentials: "include",
         headers: {
@@ -44,18 +49,22 @@ function App() {
 
   return (
     <div className="bg-gray-100 dark:bg-gray-900 flex flex-col min-h-screen">
-      <BrowserRouter>
-        <Navbar user={user} darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>
-        <Routes>
-          {/* <Route path='/' element={<Home />} /> */}
-          <Route path="/" element={<Dashboard user={user}/>} />
-          {/* <Route path="/login" element={user ? <Navigate to="/" /> : <Login/>} />
-          <Route path="/calculatefirenumber" element={user ? <Navigate to="/" /> : <CalculateFIRENumber />} /> */}
-          <Route path="/dashboard" element={<Dashboard user={user}/>} />
-          {/* <Route path="/profile" element={<CalculateFIRENumber />} /> */}
-          <Route path='*' element={<PageNotFound />}/>
-        </Routes>
-      </BrowserRouter>
+      <Suspense fallback={<div className="container">Loading...</div>}>
+        <BrowserRouter>
+          <Navbar user={user} darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>
+          <Routes>
+            {/* <Route path='/' element={<Home />} /> */}
+            <Route path="/" element={<Dashboard user={user}/>} />
+            {/* <Route path="/login" element={user ? <Navigate to="/" /> : <Login/>} />
+            <Route path="/calculatefirenumber" element={user ? <Navigate to="/" /> : <CalculateFIRENumber />} /> */}
+            <Route path="/dashboard" element={<Dashboard user={user}/>} />
+            {/* <Route path="/profile" element={<CalculateFIRENumber />} /> */}
+            <Route path='*' element={<PageNotFound />}/>
+            {/* <Route path='/pages' element={<Pages />}/>
+            <Route path='/pages/:slug' element={<Page />}/> */}
+          </Routes>
+        </BrowserRouter>
+      </Suspense>
       <main className="flex-grow"></main>
       <Footer />
     </div> 

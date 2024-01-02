@@ -9,6 +9,8 @@ import Disclaimer from "../components/overlays/Disclaimer";
 import UserDashboardDataForm from "../components/overlays/UserDashboardDataForm";
 import Welcome from "../components/overlays/Welcome";
 
+const SERVER_URL = import.meta.env.SERVER_URL || "http://localhost:3000";
+
 function Dashboard() {
   const [showForm, setShowForm] = useState(false);
   const [showDashboard, setShowDashboard] = useState(false);
@@ -36,7 +38,7 @@ function Dashboard() {
 
   useEffect(() => {
     const getUser = () => {
-      fetch("http://localhost:3000/auth/login/success", {
+      fetch(`${SERVER_URL}/auth/login/success`, {
         method: "GET",
         credentials: "include",
         headers: {

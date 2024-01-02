@@ -14,13 +14,15 @@ const defaultStages = [
   { id: 10, name: '10', description: '100% FI' }
 ]
 
+const SERVER_URL = import.meta.env.SERVER_URL || "http://localhost:3000";
+
 export default function Stages(props) {
   const [stages, setStages] = useState(defaultStages);
   const stage = props.userData.stage ? props.userData.stage : 7; // 7 is the default sample data stage
 
   useEffect(() => {
     const getStages = () => {
-      fetch("http://localhost:3000/dashboard/stages", {
+      fetch(`${SERVER_URL}/dashboard/stages`, {
         method:"GET", 
         credentials: "include",
         headers: {

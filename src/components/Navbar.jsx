@@ -1,7 +1,9 @@
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon, ArrowRightOnRectangleIcon, SunIcon, MoonIcon } from '@heroicons/react/24/outline'
+import { Fragment } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import { Bars3Icon, BellIcon, XMarkIcon, ArrowRightOnRectangleIcon, SunIcon, MoonIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+
+const SERVER_URL = import.meta.env.SERVER_URL || "http://localhost:3000";
 
 const navigation = [
   // { name: 'Home', to: '/', current: false },
@@ -10,7 +12,7 @@ const navigation = [
 ]
 
 const logout =() => {
-  window.open("http://localhost:3000/auth/logout", "_self");
+  window.open(`${SERVER_URL}/auth/logout`, "_self");
 };
 
 const accountMenu = [
