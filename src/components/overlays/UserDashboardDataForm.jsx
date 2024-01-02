@@ -2,6 +2,44 @@ import { useRef, useState } from 'react';
 import { Transition } from '@headlessui/react';
 import { Tooltip } from '@mui/material';
 
+const [mailerState, setMailerState] = useState({
+  name: "",
+  email: "",
+  message: "",
+});
+
+const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3000";
+
+const submitEmail = async () => {
+  // console.log({ mailerState });
+  const response = await fetch(`${SERVER_URL}/nodemailer/send`, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({ mailerState }),
+  })
+    .then((res) => res.json())
+    .then(async (res) => {
+      const resData = await res;
+      // // console.log(resData);
+      // if (resData.status === "success") {
+      //   // alert("Message Sent");
+      //   console.log("Message Sent");
+      // } else if (resData.status === "fail") {
+      //   // alert("Message failed to send");
+      //   console.log("Message failed to send");
+      // }
+    })
+    .then(() => {
+      setMailerState({
+        email: "",
+        name: "",
+        message: "",
+      });
+    });
+};
+
 function UserDashboardDataForm({user, userData, setShowForm, setUserData, setShowDashboard}) {
     const cancelButtonRef = useRef(null)
     const currencyFormatOptions = { 
@@ -110,8 +148,8 @@ function UserDashboardDataForm({user, userData, setShowForm, setUserData, setSho
         default:
           var stage = 10;
       }
-  
-      setUserData({
+
+      const newUserData = {
         stage: stage,
         netWorth: netWorth,
         assets: assets,
@@ -128,9 +166,17 @@ function UserDashboardDataForm({user, userData, setShowForm, setUserData, setSho
         savingsRate: savingsRate,
         fireNumber: fireNumber,
         fiPercentage: fiPercentage,
-      });
+      }
+  
+      setUserData(newUserData);
 
       setShowDashboard(true);
+
+      setMailerState({
+        email: "",
+        subject: "firejourneyapp_dashboard",
+        message: JSON.stringify({ newUserData }),
+      });
       
     };
   

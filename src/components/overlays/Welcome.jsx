@@ -8,7 +8,7 @@ function Welcome() {
 
   const [mailerState, setMailerState] = useState({
     name: "",
-    email: "",
+    subject: "",
     message: "",
   });
 
@@ -26,20 +26,20 @@ function Welcome() {
       .then((res) => res.json())
       .then(async (res) => {
         const resData = await res;
-        // console.log(resData);
-        if (resData.status === "success") {
-          // alert("Message Sent");
-          console.log("Message Sent");
-        } else if (resData.status === "fail") {
-          // alert("Message failed to send");
-          console.log("Message failed to send");
-        }
+        // // console.log(resData);
+        // if (resData.status === "success") {
+        //   // alert("Message Sent");
+        //   console.log("Message Sent");
+        // } else if (resData.status === "fail") {
+        //   // alert("Message failed to send");
+        //   console.log("Message failed to send");
+        // }
       })
       .then(() => {
         setMailerState({
           email: "",
-          name: "",
-          message: "",
+          subject: "firejourneyapp",
+          message: "New access to demo dashboard",
         });
       });
   };
