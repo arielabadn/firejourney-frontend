@@ -20,30 +20,30 @@ export default function Stages(props) {
   const [stages, setStages] = useState(defaultStages);
   const stage = props.userData.stage ? props.userData.stage : 7; // 7 is the default sample data stage
 
-  useEffect(() => {
-    const getStages = () => {
-      fetch(`${SERVER_URL}/dashboard/stages`, {
-        method:"GET", 
-        credentials: "include",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Credentials": true,
-        },
-      })
-       .then((response) => {
-        if (response.status === 200) return response.json();
-        throw new Error("authentication has failed!");
-       })
-       .then((data) => {
-        setStages(data.stages);
-      })
-       .catch((error) => {
-        console.log(error);
-      });
-    };
-    getStages();
-  }, []);
+  // useEffect(() => {
+  //   const getStages = () => {
+  //     fetch(`${SERVER_URL}/dashboard/stages`, {
+  //       method:"GET", 
+  //       credentials: "include",
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //         "Access-Control-Allow-Credentials": true,
+  //       },
+  //     })
+  //      .then((response) => {
+  //       if (response.status === 200) return response.json();
+  //       throw new Error("authentication has failed!");
+  //      })
+  //      .then((data) => {
+  //       setStages(data.stages);
+  //     })
+  //      .catch((error) => {
+  //       console.log(error);
+  //     });
+  //   };
+  //   getStages();
+  // }, []);
 
   function stageStatus(details) {
     return (
