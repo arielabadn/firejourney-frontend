@@ -8,8 +8,8 @@ function Welcome() {
 
   const [mailerState, setMailerState] = useState({
     name: "",
-    subject: "",
-    message: "",
+    subject: "firejourneyapp",
+    message: "New access to demo dashboard",
   });
 
   const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3000";
@@ -38,8 +38,8 @@ function Welcome() {
       .then(() => {
         setMailerState({
           email: "",
-          subject: "firejourneyapp",
-          message: "New access to demo dashboard",
+          subject: "",
+          message: "",
         });
       });
   };

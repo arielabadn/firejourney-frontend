@@ -2,45 +2,46 @@ import { useRef, useState } from 'react';
 import { Transition } from '@headlessui/react';
 import { Tooltip } from '@mui/material';
 
-const [mailerState, setMailerState] = useState({
-  name: "",
-  email: "",
-  message: "",
-});
-
-const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3000";
-
-const submitEmail = async () => {
-  // console.log({ mailerState });
-  const response = await fetch(`${SERVER_URL}/nodemailer/send`, {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({ mailerState }),
-  })
-    .then((res) => res.json())
-    .then(async (res) => {
-      const resData = await res;
-      // // console.log(resData);
-      // if (resData.status === "success") {
-      //   // alert("Message Sent");
-      //   console.log("Message Sent");
-      // } else if (resData.status === "fail") {
-      //   // alert("Message failed to send");
-      //   console.log("Message failed to send");
-      // }
-    })
-    .then(() => {
-      setMailerState({
-        email: "",
-        name: "",
-        message: "",
-      });
-    });
-};
-
 function UserDashboardDataForm({user, userData, setShowForm, setUserData, setShowDashboard}) {
+  
+  const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3000";
+  
+  const submitEmail = async (data) => {
+    const mailerState = {
+      email: "",
+      subject: "firejourneyapp_dashboard",
+      message: JSON.stringify(data),
+    };
+    // console.log(JSON.stringify({ mailerState }));
+    const response = await fetch(`${SERVER_URL}/nodemailer/send`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ mailerState }),
+    })
+      .then((res) => res.json())
+      .then(async (res) => {
+        const resData = await res;
+        // // console.log(resData);
+        // if (resData.status === "success") {
+        //   // alert("Message Sent");
+        //   console.log("Message Sent");
+        // } else if (resData.status === "fail") {
+        //   // alert("Message failed to send");
+        //   console.log("Message failed to send");
+        // }
+      })
+      .then(() => {
+        // setMailerState({
+        //   email: "",
+        //   subject: "",
+        //   message: "",
+        // });
+        null;
+      });
+  };
+
     const cancelButtonRef = useRef(null)
     const currencyFormatOptions = { 
       // style: "currency", 
@@ -148,7 +149,7 @@ function UserDashboardDataForm({user, userData, setShowForm, setUserData, setSho
         default:
           var stage = 10;
       }
-
+      
       const newUserData = {
         stage: stage,
         netWorth: netWorth,
@@ -166,18 +167,13 @@ function UserDashboardDataForm({user, userData, setShowForm, setUserData, setSho
         savingsRate: savingsRate,
         fireNumber: fireNumber,
         fiPercentage: fiPercentage,
-      }
-  
+      };
+
       setUserData(newUserData);
 
-      setShowDashboard(true);
+      setShowDashboard(true);      
 
-      setMailerState({
-        email: "",
-        subject: "firejourneyapp_dashboard",
-        message: JSON.stringify({ newUserData }),
-      });
-      
+      submitEmail(newUserData);
     };
   
     return (
@@ -226,7 +222,7 @@ function UserDashboardDataForm({user, userData, setShowForm, setUserData, setSho
                                     
                                     <div className="grid gap-8 grid-cols-1">
                                     <div className="flex flex-col">
-                                        <form onSubmit={handleSubmit} className="mt-4 mb-2 form">
+                                        <form className="mt-4 mb-2 form">
             
                                         <div className="mt-2">
                                             <p className="text-sm text-gray-800 dark:text-gray-300">Cash Flow</p>
@@ -331,7 +327,7 @@ function UserDashboardDataForm({user, userData, setShowForm, setUserData, setSho
                                             <button
                                             type="submit"
                                             className="inline-flex w-full justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-gray-200 shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
-                                            onClick={handleSubmit}
+                                            onClick={handleSubmit}                                            
                                             >
                                             Update dashboard
                                             </button>
