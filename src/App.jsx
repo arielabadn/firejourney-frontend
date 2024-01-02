@@ -13,7 +13,7 @@ const Dashboard = lazy(() => import("./pages/Dashboard"));
 // const Page = lazy(() => import("./components/Page"));
 // const Pages = lazy(() => import("./components/Pages"));
 
-const SERVER_URL = import.meta.env.SERVER_URL || "http://localhost:3000";
+const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3000";
 
 function App() {
   const [user, setUser] = useState(null);

@@ -3,7 +3,7 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon, ArrowRightOnRectangleIcon, SunIcon, MoonIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 
-const SERVER_URL = import.meta.env.SERVER_URL || "http://localhost:3000";
+const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3000";
 
 const navigation = [
   // { name: 'Home', to: '/', current: false },

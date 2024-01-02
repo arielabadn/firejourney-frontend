@@ -1,7 +1,7 @@
 import Google from "../Img/google.svg";
 import Header from "../components/Header";
 
-const SERVER_URL = import.meta.env.SERVER_URL || "http://localhost:3000";
+const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3000";
 
 function Login() {
 

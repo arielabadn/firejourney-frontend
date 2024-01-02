@@ -14,7 +14,7 @@ const defaultStages = [
   { id: 10, name: '10', description: '100% FI' }
 ]
 
-const SERVER_URL = import.meta.env.SERVER_URL || "http://localhost:3000";
+const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3000";
 
 export default function Stages(props) {
   const [stages, setStages] = useState(defaultStages);

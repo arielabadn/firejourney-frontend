@@ -9,7 +9,7 @@ import Disclaimer from "../components/overlays/Disclaimer";
 import UserDashboardDataForm from "../components/overlays/UserDashboardDataForm";
 import Welcome from "../components/overlays/Welcome";
 
-const SERVER_URL = import.meta.env.SERVER_URL || "http://localhost:3000";
+const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3000";
 
 function Dashboard() {
   const [showForm, setShowForm] = useState(false);

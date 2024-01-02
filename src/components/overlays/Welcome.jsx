@@ -12,7 +12,7 @@ function Welcome() {
     message: "",
   });
 
-  const SERVER_URL = import.meta.env.SERVER_URL || "http://localhost:3000";
+  const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3000";
 
   const submitEmail = async () => {
     // console.log({ mailerState });
