@@ -10,8 +10,8 @@ const CalculateFIRENumber = lazy(() => import("./components/CalculateYourFIRENum
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 const StackedLayout = lazy(() => import("./components/StackedLayout"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
-// const Page = lazy(() => import("./components/Page"));
-// const Pages = lazy(() => import("./components/Pages"));
+// const Page = lazy(() => import("./components/Blog/Page"));
+// const Pages = lazy(() => import("./components/Blog/Pages"));
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3000";
 
