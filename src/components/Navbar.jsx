@@ -81,20 +81,20 @@ function Navbar({user, darkTheme, setDarkTheme}) {
                   { darkTheme ? <SunIcon className="h-6 w-6" aria-hidden="true" /> : <MoonIcon className="h-5 w-5" aria-hidden="true" /> }
                 </button>
                 { !user ?
-                  // <Link to="/login">
-                  //   <button
-                  //     type="button"
-                  //     className="relative rounded-md px-3 py-2 text-base font-medium text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
-                  //   >
-                  //     <span className="absolute -inset-1.5" />
-                  //     <span className="sr-only">Sign in</span>
-                  //     {/* <BellIcon className="h-6 w-6" aria-hidden="true" /> */}
-                  //     {/* Sign in */}
-                  //     Sign In 
-                  //     {/* <ArrowRightOnRectangleIcon className="h-6 w-6" aria-hidden="true" /> */}
-                  //   </button>
-                  // </Link>
-                  <></>
+                  <Link to="/login">
+                    <button
+                      type="button"
+                      className="relative rounded-md px-3 py-2 text-base font-medium text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
+                    >
+                      <span className="absolute -inset-1.5" />
+                      <span className="sr-only">Sign in</span>
+                      {/* <BellIcon className="h-6 w-6" aria-hidden="true" /> */}
+                      {/* Sign in */}
+                      Sign In 
+                      {/* <ArrowRightOnRectangleIcon className="h-6 w-6" aria-hidden="true" /> */}
+                    </button>
+                  </Link>
+                  // <></>
                   : <>
                       <button
                         type="button"
