@@ -10,8 +10,8 @@ const CalculateFIRENumber = lazy(() => import("./components/CalculateYourFIRENum
 const PageNotFound = lazy(() => import("./pages/PageNotFound"));
 const StackedLayout = lazy(() => import("./components/StackedLayout"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
-// const Page = lazy(() => import("./components/Blog/Page"));
-// const Pages = lazy(() => import("./components/Blog/Pages"));
+const Page = lazy(() => import("./components/Blog/Page"));
+const Pages = lazy(() => import("./components/Blog/Pages"));
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL || "http://localhost:3000";
 
@@ -19,30 +19,30 @@ function App() {
   const [user, setUser] = useState(null);
   const [darkTheme, setDarkTheme] = useState(false);
 
-  // useEffect(()=>{
-  //   const getUser = ()=>{
-  //     fetch(`${SERVER_URL}/auth/login/success`, {
-  //       method:"GET", 
-  //       credentials: "include",
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //         "Access-Control-Allow-Credentials": true,
-  //       },
-  //     })
-  //      .then((response) => {
-  //       if (response.status === 200) return response.json();
-  //       throw new Error("authentication has failed!");
-  //      })
-  //      .then((resObject) => {
-  //       setUser(resObject.user);
-  //     })
-  //      .catch((err) => {
-  //       console.log(err);
-  //     });
-  //   };
-  //   getUser();
-  // },[]);
+  useEffect(()=>{
+    const getUser = ()=>{
+      fetch(`${SERVER_URL}/auth/login/success`, {
+        method:"GET", 
+        credentials: "include",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+        },
+      })
+       .then((response) => {
+        if (response.status === 200) return response.json();
+        throw new Error("authentication has failed!");
+       })
+       .then((resObject) => {
+        setUser(resObject.user);
+      })
+       .catch((err) => {
+        console.log(err);
+      });
+    };
+    getUser();
+  },[]);
 
   // Set dark theme manually
   darkTheme ? document.documentElement.classList.add('dark') : document.documentElement.classList.remove('dark');
@@ -53,15 +53,15 @@ function App() {
         <BrowserRouter>
           <Navbar user={user} darkTheme={darkTheme} setDarkTheme={setDarkTheme}/>
           <Routes>
-            {/* <Route path='/' element={<Home />} /> */}
+            <Route path='/' element={<Home />} />
             <Route path="/" element={<Dashboard user={user}/>} />
-            {/* <Route path="/login" element={user ? <Navigate to="/" /> : <Login/>} />
-            <Route path="/calculatefirenumber" element={user ? <Navigate to="/" /> : <CalculateFIRENumber />} /> */}
+            <Route path="/login" element={user ? <Navigate to="/" /> : <Login/>} />
+            <Route path="/calculatefirenumber" element={user ? <Navigate to="/" /> : <CalculateFIRENumber />} />
             <Route path="/dashboard" element={<Dashboard user={user}/>} />
-            {/* <Route path="/profile" element={<CalculateFIRENumber />} /> */}
+            <Route path="/profile" element={<CalculateFIRENumber />} />
             <Route path='*' element={<PageNotFound />}/>
-            {/* <Route path='/pages' element={<Pages />}/>
-            <Route path='/pages/:slug' element={<Page />}/> */}
+            <Route path='/pages' element={<Pages />}/>
+            <Route path='/pages/:slug' element={<Page />}/>
           </Routes>
         </BrowserRouter>
       </Suspense>
